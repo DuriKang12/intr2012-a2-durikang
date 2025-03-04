@@ -1,21 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memory Match Game</title>
+    <title>Color Matching Game</title>
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <h1>Memory Match Game</h1>
-    <div id="grid"></div>
-    <p>Score: <span id="score">0</span> | Pairs Left: <span id="pairs">10</span></p>
 
-    <h2>Design Rationale</h2>
+<body>
+    <h1 class="title">
+        <span style="color: #FF0000;">C</span>
+        <span style="color: #FF9900;">O</span>
+        <span style="color: #FFF700;">L</span>
+        <span style="color: #11CC0A;">O</span>
+        <span style="color: #0088FF;">R</span>
+        &nbsp;
+        <span style="color: #1B0587;">M</span>
+        <span style="color: #8707AD;">A</span>
+        <span style="color: #ED72AF;">T</span>
+        <span style="color: #803703;">C</span>
+        <span style="color: #000000;">H</span>
+        <span style="color: #FF0000;">I</span>
+        <span style="color: #FF9900;">N</span>
+        <span style="color: #FFF700;">G</span>
+        &nbsp;
+        <span style="color: #11CC0A;">G</span>
+        <span style="color: #0088FF;">A</span>
+        <span style="color: #1B0587;">M</span>
+        <span style="color: #8707AD;">E</span>
+    </h1>
+    <div id="grid"></div>
+    <h5>Score: <span id="score">0</span> | Pairs Left: <span id="pairs">10</span></h5>
     <div class="rationale">
-        <p><strong>Rationale for Choosing Isotope:</strong> The decision to utilize Isotope, a powerful JavaScript layout library, stems from its exceptional capability to manage dynamic and responsive grids, which is perfectly suited for this Memory Match game. Isotope’s immediate strengths lie in its ability to seamlessly arrange the 4x5 card grid, ensuring a visually appealing and functional interface that adapts as players match pairs and cards are hidden. This proof-of-concept highlights how Isotope simplifies the complex task of maintaining layout integrity during gameplay, offering smooth transitions and real-time updates. The plugin’s filtering and sorting features enhance user interaction by keeping the game organized, while its lightweight nature ensures optimal performance across devices. This choice aligns with the assignment’s goal of demonstrating a plugin’s practical application in creating an engaging, interactive web experience.</p>
-        <p><strong>Opportunities Beyond This Proof-of-Concept:</strong> The potential of Isotope extends far beyond this simple game, opening doors to a variety of sophisticated applications. For instance, it could be integrated with a backend system like Firebase to implement a high-score leaderboard, adding a competitive element to the game. Additionally, Isotope’s advanced filtering capabilities could support multiple difficulty levels or themed card sets, enriching the gameplay experience. Beyond gaming, this plugin could power dynamic portfolios where projects are filterable by category, or e-commerce platforms with sortable product grids. Future enhancements might include custom animations using Isotope’s event hooks, mobile optimization for touch interfaces, or even integration with machine learning models to dynamically adjust card layouts based on player behavior, making it a versatile tool for creative and commercial web projects.</p>
+        <h2>Design Rationale</h2>
+        <h6><strong>Rationale for choosing Isotope:</strong></h6>
+        <p>
+            The decision to use Isotope, a powerful JavaScript layout
+            library, comes from its ability to manage dynamic and responsive grids effortlessly.
+            This makes it a perfect fit for the Memory Match game. One of Isotope’s biggest strengths is its seamless
+            arrangement of the 4x5 card grid, ensuring a visually appealing and functional interface.
+            <br>
+            <br>
+            As players match pairs and cards are hidden, the layout remains intact. This creates a smooth and engaging
+            user experience. This concept demonstrates how Isotope simplifies layout management during gameplay,
+            offering smooth transitions and real time updates.
+            <br>
+            <br>
+            The plugin’s built in filtering and sorting features help keep the game well organized. Its lightweight
+            nature ensures fast performance across different devices. Ultimately, choosing Isotope supports the
+            project’s goal by demonstrating a practical plugin in action. It enhances interactivity and user engagement,
+            making web experiences more dynamic and seamless.
+        </p>
+
+        <h6><strong>Futher Possibilities and Applications:</strong></h6>
+        <p>
+            The potential of Isotope goes far beyond this simple game, opening doors to more sophisticated applications.
+            For example, integrating it with Firebase could enable a high score leaderboard. This would add a
+            competitive element to the gameplay. Additionally, Isotope’s advanced filtering could introduce multiple
+            difficulty levels or themed card sets. This would make the experience more dynamic and engaging.
+            <br>
+            <br>
+            Beyond gaming, Isotope could be used for dynamic portfolios, allowing users to filter projects by category.
+            It could also enhance e-commerce platforms, where customers sort products by price, popularity, or
+            availability. Future enhancements could include custom animations using Isotope’s event hooks. Mobile
+            optimization for touch based interactions could also improve usability. Even machine learning integration
+            could be explored to dynamically adjust layouts based on user behavior.
+            <br>
+            <br>
+            These possibilities make Isotope a versatile and valuable tool. It can support a wide range of creative and
+            commercial web projects.
+        </p>
     </div>
 
     <script>
@@ -25,18 +81,33 @@
         let cards = [];
         let flippedCards = [];
         let score = 0;
-        let pairs = 10; // 20 cards, 10 pairs
+        let pairs = 10; 
 
-        // Card data (pairs of numbers 1-10)
-        const cardValues = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10];
-        cardValues.sort(() => Math.random() - 0.5); // Shuffle
 
-        // Initialize grid
+        const colors = [
+            '#FF0000', 
+            '#FF9900', 
+            '#FFF700', 
+            '#11CC0A', 
+            '#0088FF', 
+            '#1B0587', 
+            '#8707AD', 
+            '#ED72AF', 
+            '#965627', 
+            '#000000'  
+        ];
+
+
+        const cardValues = [...Array(10).keys()].flatMap(i => [i, i]);
+        cardValues.sort(() => Math.random() - 0.5); 
+
+
         function createGrid() {
             for (let i = 0; i < 20; i++) {
                 const card = document.createElement('div');
                 card.className = 'card';
-                card.dataset.value = cardValues[i];
+                card.dataset.value = cardValues[i]; 
+                card.style.backgroundColor = '#800020'; 
                 card.addEventListener('click', flipCard);
                 grid.appendChild(card);
                 cards.push(card);
@@ -45,17 +116,17 @@
                 itemSelector: '.card',
                 layoutMode: 'fitRows',
                 fitRows: {
-                    rowHeight: 100, // Fixed row height to ensure 5 rows
-                    columnWidth: 150 // Fixed column width to ensure 4 columns
+                    rowHeight: 110, 
+                    columnWidth: 160 
                 }
             });
         }
 
-        // Flip card function
+
         function flipCard() {
             if (flippedCards.length < 2 && !this.classList.contains('flipped') && !this.classList.contains('matched')) {
+                this.style.backgroundColor = colors[this.dataset.value];
                 this.classList.add('flipped');
-                this.textContent = this.dataset.value;
                 flippedCards.push(this);
 
                 if (flippedCards.length === 2) {
@@ -64,7 +135,7 @@
             }
         }
 
-        // Check if cards match
+
         function checkMatch() {
             if (flippedCards[0].dataset.value === flippedCards[1].dataset.value) {
                 flippedCards.forEach(card => card.classList.add('matched'));
@@ -81,19 +152,21 @@
                 }
             } else {
                 flippedCards.forEach(card => {
-                    card.classList.remove('flipped');
-                    card.textContent = '';
+                    setTimeout(() => {
+                        card.style.backgroundColor = '#800020'; 
+                        card.classList.remove('flipped');
+                    }, 500); 
                 });
             }
             flippedCards = [];
-            Isotope.data(grid).arrange(); // Re-layout grid
+            Isotope.data(grid).arrange(); 
         }
 
-        // Reset game function
+
         function resetGame() {
             cards.forEach(card => {
+                card.style.backgroundColor = '#800020'; 
                 card.classList.remove('flipped', 'matched');
-                card.textContent = '';
             });
             cardValues.sort(() => Math.random() - 0.5);
             cards.forEach((card, index) => card.dataset.value = cardValues[index]);
@@ -104,8 +177,9 @@
             Isotope.data(grid).arrange();
         }
 
-        // Start game
+
         createGrid();
     </script>
 </body>
+
 </html>
